@@ -25,7 +25,7 @@ export const postItemRoutes = async (req, res) => {
     const savedItem = await newItem.save();
     res.status(201).json(savedItem);
   } catch (error) {
-    console.error("Error saving item:", erroe);
+    console.error("Error saving item:", error);
     res.status(500).json({
       message: "Failed to save item",
       duplicate: error.errorResponse.errmsg.includes("duplicate"),
@@ -44,8 +44,11 @@ export const putItemRoutes = async (req, res) => {
     );
     res.status(200).json({ message: "Item updated successfully" });
   } catch (error) {
-    console.error("Error updating item:", error);
-    res.status(500).json({ message: "Failed to update item" });
+    console.error("Error saving item:", error);
+    res.status(500).json({
+      message: "Failed to save item",
+      duplicate: error.errorResponse.errmsg.includes("duplicate"),
+    });
   }
 };
 
